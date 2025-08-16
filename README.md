@@ -1,150 +1,120 @@
 # SynergesticControl
 
-A Python project for system identification and control algorithms, focusing on least squares estimation and data fitting techniques.
+Este repositorio forma parte del curso **Control Sinérgico** disponible en: https://sites.google.com/view/elingedecontrol/cursos-y-talleres/control-sin%C3%A9rgico?authuser=0
 
-## Project Overview
+La automatización es una de las áreas de la ingeniería moderna con mayor impacto en nuestras vidas, y su avance parece no tener límites. Aunque a primera vista pueda parecer un tema complejo, en este curso te guiaremos paso a paso para que desarrolles un proyecto completo de ingeniería de control, utilizando una metodología que llamamos control sinérgico.
 
-This project contains system identification tools and utilities for control systems analysis. Currently, the main module provides:
+El control sinérgico es una metodología que combina herramientas de análisis geométrico y métodos de cómputo suave para la optimización de modelos y controladores. Así, mientras la teoría de control nos proporciona técnicas para analizar la estabilidad de los sistemas, las metaheurísticas nos permiten refinar los controladores estabilizantes para alcanzar un mejor desempeño.
 
-- **Least Squares Estimation**: Core utilities for solving least squares problems using different methods
-- **Basis Functions**: Support for linear and polynomial basis functions
-- **Interactive Visualization**: Plotly-based visualization tools for data fitting and residual analysis
+Para implementar esta metodología, durante el taller exploraremos conceptos fundamentales como la función de transferencia, los controladores PID y los sistemas en lazo cerrado. Posteriormente, abordaremos temas más especializados como la identificación de sistemas, el análisis de estabilidad mediante métodos geométricos, y el diseño de controladores utilizando algoritmos metaheurísticos.
 
-## Features
+Lo mejor de todo es que las ideas y técnicas que aprenderás aquí tienen aplicación en múltiples áreas de la ingeniería siempre que exista un problema de regulación: motores, convertidores, bioreactores, robots, drones, baterías, entre muchos otros.
 
-### Current Implementation (`sysIdent/leastsquares.py`)
+A lo largo del taller utilizamos el lenguaje de programación Python para realizar todos nuestros análisis.
 
-- **Multiple LSQ Solvers**: 
-  - `lstsq`: NumPy's least squares solver
-  - `normal`: Normal equation method with optional ridge regularization
-  - `pinv`: Pseudo-inverse method
+## Características
 
-- **Flexible Basis Functions**:
-  - Linear basis: `y = mx + b`
-  - Polynomial basis: Support for any degree polynomial fitting
+## Instalación y Configuración
 
-- **Interactive Visualization**:
-  - Two-panel plots showing data vs. fitted model and residuals
-  - Smooth model curves with customizable titles
-  - Built with Plotly for interactive exploration
+Este proyecto utiliza [Poetry](https://python-poetry.org/) para la gestión de dependencias. Asegúrate de tener Poetry instalado en tu sistema.
 
-## Installation and Setup
+### Prerrequisitos
 
-This project uses [Poetry](https://python-poetry.org/) for dependency management. Make sure you have Poetry installed on your system.
+- Python 3.11 o superior
+- Poetry (para gestión de dependencias)
 
-### Prerequisites
+### Instalación
 
-- Python 3.11 or higher
-- Poetry (for dependency management)
-
-### Installation
-
-1. Clone the repository:
+1. Clona el repositorio:
    ```bash
    git clone https://github.com/AdrianGuel/SynergesticControl.git
    cd SynergesticControl
    ```
 
-2. Install dependencies using Poetry:
+2. Instala las dependencias usando Poetry:
    ```bash
    poetry install
    ```
 
-3. Activate the virtual environment:
+3. Activa el entorno virtual:
    ```bash
    poetry shell
    ```
 
-## Usage
+## Uso
 
-### Running the Example
+### Ejecutando el Ejemplo
 
-To see the least squares fitting in action:
+Para ver el ajuste por mínimos cuadrados en acción:
 
 ```bash
 poetry run python sysIdent/leastsquares.py
 ```
 
-This will:
-1. Generate synthetic noisy linear data
-2. Fit both linear and cubic polynomial models
-3. Display interactive Plotly visualizations showing:
-   - Original data points vs. fitted curves
-   - Residual plots for model validation
+Esto:
+1. Generará datos lineales sintéticos con ruido
+2. Ajustará modelos lineales y polinomiales cúbicos
+3. Mostrará visualizaciones interactivas de Plotly que muestran:
+   - Puntos de datos originales vs. curvas ajustadas
+   - Gráficos de residuos para validación del modelo
 
-### Using as a Module
+### Usando como Módulo
 
-You can import and use the functions in your own scripts:
+Puedes importar y usar las funciones en tus propios scripts:
 
 ```python
 from sysIdent.leastsquares import solve_least_squares, linear_basis, polynomial_basis, visualize_fit_plotly
 import numpy as np
 
-# Your data
+# Tus datos
 X = np.array([1, 2, 3, 4, 5])
 Y = np.array([2.1, 4.2, 5.8, 8.1, 10.2])
 
-# Fit a linear model
+# Ajustar un modelo lineal
 theta, Y_hat, residuals = solve_least_squares(X, Y, linear_basis())
-print("Linear fit parameters:", theta)
+print("Parámetros del ajuste lineal:", theta)
 
-# Visualize the results
-fig = visualize_fit_plotly(X, Y, linear_basis(), theta, title="My Linear Fit")
+# Visualizar los resultados
+fig = visualize_fit_plotly(X, Y, linear_basis(), theta, title="Mi Ajuste Lineal")
 fig.show()
 ```
 
-## Development
+## Desarrollo
 
-### Adding Dependencies
+### Agregando Dependencias
 
-To add new dependencies:
-
-```bash
-poetry add package_name
-```
-
-For development dependencies:
+Para agregar nuevas dependencias:
 
 ```bash
-poetry add --group dev package_name
+poetry add nombre_paquete
 ```
 
-### Running Tests
-
-Once tests are added to the project:
+Para dependencias de desarrollo:
 
 ```bash
-poetry run pytest
+poetry add --group dev nombre_paquete
 ```
 
-### Code Formatting and Linting
-
-You can add development tools like black, flake8, or mypy:
-
-```bash
-poetry add --group dev black flake8 mypy
-poetry run black .
-poetry run flake8 .
-poetry run mypy .
-```
-
-## Project Structure
+## Estructura del Proyecto
 
 ```
 SynergesticControl/
-├── pyproject.toml          # Poetry configuration and dependencies
-├── poetry.lock             # Locked dependency versions
-├── README.md              # This file
-└── sysIdent/              # Main package
-    └── leastsquares.py    # Least squares estimation utilities
+├── pyproject.toml          # Configuración de Poetry y dependencias
+├── poetry.lock             # Versiones de dependencias bloqueadas
+├── README.md              # Este archivo
+└── sysIdent/              # Paquete principal
+    └── leastsquares.py    # Utilidades de estimación por mínimos cuadrados
 ```
 
-## Dependencies
+## Dependencias
 
-- **NumPy** (>=2.3.2, <3.0.0): Numerical computing and linear algebra
-- **Plotly** (>=6.3.0, <7.0.0): Interactive visualization
+- **NumPy** (>=2.3.2, <3.0.0): Computación numérica y álgebra lineal
+- **Plotly** (>=6.3.0, <7.0.0): Visualización interactiva
 
-
-## Author
+## Autor
 
 **AdrianGuel** - adrianjguelc@gmail.com
+
+---
+
+*Este repositorio es parte del curso de Control Sinérgico. Para más información sobre el curso, visita: https://sites.google.com/view/elingedecontrol/cursos-y-talleres/control-sin%C3%A9rgico?authuser=0*
